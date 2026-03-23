@@ -1,0 +1,66 @@
+---
+layout: ../layouts/PlaygroundLayout.astro
+title: Provider skins
+description: MDX-authored provider examples that mirror the way Webtrotion executes Notion Action Code blocks as injected MDX snippets.
+---
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { baseScene } from "@fixtures/scenes";
+
+export const providers = [
+	{
+		title: "Codex",
+		provider: "codex",
+		theme: "dark",
+		description: "Sharper green-accented shell for a coding-first workspace feel.",
+	},
+	{
+		title: "Claude",
+		provider: "claude",
+		theme: "light",
+		description: "Warmer light-mode shell with calmer contrast and softer chrome.",
+	},
+	{
+		title: "Gemini",
+		provider: "gemini",
+		theme: "system",
+		description: "Cooler accent tokens on the same neutral workspace shell.",
+	},
+	{
+		title: "Mixed",
+		provider: "mixed",
+		theme: "dark",
+		description: "Neutral shell for multi-provider or sub-agent orchestration demos.",
+	},
+	{
+		title: "Generic",
+		provider: "generic",
+		theme: "light",
+		description: "Baseline shell when the post should not read as any one product.",
+	},
+];
+
+<section class="playground-intro">
+	<h2>MDX-authored provider page</h2>
+	<p>
+		This page is deliberately authored in MDX so it follows the same import-and-render path as a Webtrotion
+		Notion Action Code block after snippet generation.
+	</p>
+</section>
+
+<section class="scene-stack">
+	{providers.map((entry) => (
+		<section class="scene-block">
+			<div class="scene-block__header">
+				<div class="scene-block__eyebrow">{entry.provider}</div>
+				<h2 class="scene-block__title">{entry.title}</h2>
+				<p class="scene-block__body">{entry.description}</p>
+			</div>
+			<LLMGuiDemo
+				scene={baseScene}
+				provider={entry.provider}
+				theme={entry.theme}
+				maxHeight="760px"
+			/>
+		</section>
+	))}
+</section>

@@ -1,0 +1,20 @@
+---
+import PlaygroundLayout from "../layouts/PlaygroundLayout.astro";
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { collapseScene } from "@fixtures/scenes";
+---
+
+<PlaygroundLayout
+	title="Collapse behavior"
+	description="Explicit group nodes and per-message collapse controls keep long activity logs readable."
+>
+	<section class="playground-intro">
+		<h2>Authoring model</h2>
+		<p>
+			Collapse state is defined in the input scene object, not inferred from text markers. Users can still toggle
+			it locally at runtime.
+		</p>
+	</section>
+
+	<LLMGuiDemo scene={collapseScene} provider="generic" theme="system" maxHeight="640px" />
+</PlaygroundLayout>

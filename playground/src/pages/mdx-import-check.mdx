@@ -1,0 +1,13 @@
+---
+layout: ../layouts/PlaygroundLayout.astro
+title: MDX import check
+description: Confirm the component can be imported from MDX using the same alias style expected in Webtrotion external content.
+---
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { baseScene } from "@fixtures/scenes";
+
+## MDX import check
+
+This page exists to confirm the component can be consumed from Astro MDX, not only from `.astro` pages.
+
+<LLMGuiDemo scene={baseScene} provider="codex" theme="system" maxHeight="640px" />

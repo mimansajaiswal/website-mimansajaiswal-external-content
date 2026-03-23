@@ -1,0 +1,20 @@
+---
+import PlaygroundLayout from "../layouts/PlaygroundLayout.astro";
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { baseScene } from "@fixtures/scenes";
+---
+
+<PlaygroundLayout
+	title="Base shell"
+	description="Baseline GUI shell with top tabs, transcript, side notes pane, grouped tool activity, and a realistic recipe-import scene."
+>
+	<section class="playground-intro">
+		<h2>Baseline shell</h2>
+		<p>
+			This is the default real-workspace case: dense chrome, transcript-first layout, side notes pane, bottom
+			terminal strip, and collapsible activity that should read well inside a post.
+		</p>
+	</section>
+
+	<LLMGuiDemo scene={baseScene} provider="codex" theme="system" />
+</PlaygroundLayout>

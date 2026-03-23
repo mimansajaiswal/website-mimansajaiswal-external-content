@@ -1,0 +1,45 @@
+---
+import PlaygroundLayout from "../layouts/PlaygroundLayout.astro";
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { motionScene } from "@fixtures/scenes";
+---
+
+<PlaygroundLayout
+	title="Motion modes"
+	description="Compare static, staged playback, and CSS-first typing with the same scene data."
+>
+	<section class="playground-intro">
+		<h2>Animation scope</h2>
+		<p>
+			CSS handles typing visuals, and a tiny inline script manages instance-scoped staged reveals, tab switching,
+			and collapse state. The shell itself stays identical across all three modes.
+		</p>
+	</section>
+
+	<section class="scene-stack">
+		<section class="scene-block">
+			<div class="scene-block__header">
+				<div class="scene-block__eyebrow">Mode</div>
+				<h2 class="scene-block__title">Static</h2>
+				<p class="scene-block__body">Final-state rendering with no staged reveal.</p>
+			</div>
+			<LLMGuiDemo scene={motionScene} provider="generic" mode="static" theme="light" maxHeight="760px" />
+		</section>
+		<section class="scene-block">
+			<div class="scene-block__header">
+				<div class="scene-block__eyebrow">Mode</div>
+				<h2 class="scene-block__title">Play</h2>
+				<p class="scene-block__body">Sequential reveal for storytelling inside a post.</p>
+			</div>
+			<LLMGuiDemo scene={motionScene} provider="codex" mode="play" theme="dark" maxHeight="760px" />
+		</section>
+		<section class="scene-block">
+			<div class="scene-block__header">
+				<div class="scene-block__eyebrow">Mode</div>
+				<h2 class="scene-block__title">Typing</h2>
+				<p class="scene-block__body">CSS-first streaming treatment on explicitly flagged messages.</p>
+			</div>
+			<LLMGuiDemo scene={motionScene} provider="claude" mode="typing" theme="system" maxHeight="760px" />
+		</section>
+	</section>
+</PlaygroundLayout>

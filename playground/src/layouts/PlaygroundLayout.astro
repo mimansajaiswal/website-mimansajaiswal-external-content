@@ -1,0 +1,107 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	pathname?: string;
+	frontmatter?: {
+		title?: string;
+		description?: string;
+	};
+}
+
+const {
+	title: explicitTitle,
+	description: explicitDescription,
+	pathname = Astro.url.pathname,
+	frontmatter,
+} = Astro.props;
+
+const title = explicitTitle ?? frontmatter?.title ?? "Playground";
+const description =
+	explicitDescription ??
+	frontmatter?.description ??
+	"Astro playground for the single-file LLMGuiDemo component.";
+
+const normalizedPath =
+	pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, Math.max(1, pathname.length - 1)) : pathname;
+
+const navItems = [
+	{ href: "/", label: "Gallery" },
+	{ href: "/base", label: "Base" },
+	{ href: "/providers", label: "Providers" },
+	{ href: "/motion", label: "Motion" },
+	{ href: "/sub-agents", label: "Sub-agents" },
+	{ href: "/collapsible", label: "Collapse" },
+	{ href: "/responsive", label: "Responsive" },
+	{ href: "/mdx-import-check", label: "MDX import" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title} • LLM GUI Demo Playground</title>
+		<meta name="description" content={description} />
+		<link rel="icon" href="data:," />
+	</head>
+	<body>
+		<div class="playground-shell">
+			<header class="playground-topbar">
+				<div>
+					<h1>LLM GUI Demo Playground</h1>
+					<p>{description}</p>
+				</div>
+				<div class="playground-theme-toggle" role="group" aria-label="Playground theme">
+					<button type="button" data-theme-toggle="system">System</button>
+					<button type="button" data-theme-toggle="light">Light</button>
+					<button type="button" data-theme-toggle="dark">Dark</button>
+				</div>
+			</header>
+			<nav class="playground-nav" aria-label="Playground pages">
+				{
+					navItems.map((item) => (
+						<a href={item.href} aria-current={normalizedPath === item.href ? "page" : undefined}>
+							{item.label}
+						</a>
+					))
+				}
+			</nav>
+			<main class="playground-page">
+				<slot />
+			</main>
+		</div>
+		<script>
+			(() => {
+				const storageKey = "llm-gui-demo-playground-theme";
+				const root = document.documentElement;
+
+				const applyTheme = (value: string) => {
+					const theme = value === "light" || value === "dark" ? value : "system";
+					root.dataset.playgroundTheme = theme;
+					root.classList.toggle("dark", theme === "dark");
+					document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+						button.setAttribute(
+							"aria-pressed",
+							button.getAttribute("data-theme-toggle") === theme ? "true" : "false",
+						);
+					});
+				};
+
+				const savedTheme = window.localStorage.getItem(storageKey) ?? "system";
+				applyTheme(savedTheme);
+
+				document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+					button.addEventListener("click", () => {
+						const theme = button.getAttribute("data-theme-toggle") ?? "system";
+						window.localStorage.setItem(storageKey, theme);
+						applyTheme(theme);
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

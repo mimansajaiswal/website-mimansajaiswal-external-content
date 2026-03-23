@@ -1,1 +1,7 @@
-.DS_STORE
+.DS_Store
+**/node_modules/
+**/dist
+**/.astro
+output/
+**/.npm-cache/
+.playwright-cli/

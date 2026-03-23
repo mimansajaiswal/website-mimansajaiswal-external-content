@@ -1,0 +1,20 @@
+---
+import PlaygroundLayout from "../layouts/PlaygroundLayout.astro";
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { subAgentScene } from "@fixtures/scenes";
+---
+
+<PlaygroundLayout
+	title="Sub-agents"
+	description="A parent agent coordinates two child agents, each with provider-specific identity but the same layout system."
+>
+	<section class="playground-intro">
+		<h2>Sub-agent expectations</h2>
+		<p>
+			This page exercises nested agent identity, grouped responses, and worker-specific tabs while keeping the
+			workspace shell fixed.
+		</p>
+	</section>
+
+	<LLMGuiDemo scene={subAgentScene} provider="mixed" theme="light" maxHeight="700px" />
+</PlaygroundLayout>

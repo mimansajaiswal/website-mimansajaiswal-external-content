@@ -1,0 +1,53 @@
+---
+import PlaygroundLayout from "../layouts/PlaygroundLayout.astro";
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { baseScene, motionScene, subAgentScene } from "@fixtures/scenes";
+
+const cards = [
+	{ href: "/base", title: "Base shell", description: "Top tabs, transcript, and optional right pane in a flat workspace shell." },
+	{ href: "/providers", title: "Provider skins", description: "Multiple instances on one page with Codex, Claude, Gemini, mixed, and generic variants." },
+	{ href: "/motion", title: "Motion modes", description: "Static, staged play, and CSS-first typing from one schema." },
+	{ href: "/sub-agents", title: "Sub-agent flow", description: "Parent + child agent orchestration with grouped activity." },
+	{ href: "/collapsible", title: "Collapse behavior", description: "Explicit group and message-level collapses with local state." },
+	{ href: "/responsive", title: "Responsive widths", description: "Desktop, tablet, and mobile-width previews on one page." },
+	{ href: "/mdx-import-check", title: "MDX import", description: "Sanity check for importing the component through Astro MDX." },
+];
+---
+
+<PlaygroundLayout
+	title="Gallery"
+	description="A static Astro playground for iterating on the single-file GUI demo component before using it in Webtrotion MDX."
+>
+	<section class="card-grid">
+		{
+			cards.map((card) => (
+				<article class="page-card">
+					<h2>{card.title}</h2>
+					<p>{card.description}</p>
+					<a href={card.href}>Open page</a>
+				</article>
+			))
+		}
+	</section>
+
+	<section class="preview-grid">
+		<div class="preview-frame preview-frame--demo">
+			<h2>Base preview</h2>
+			<div class="preview-frame__canvas">
+				<LLMGuiDemo scene={baseScene} provider="codex" theme="system" maxHeight="500px" />
+			</div>
+		</div>
+		<div class="preview-frame preview-frame--demo">
+			<h2>Sub-agent preview</h2>
+			<div class="preview-frame__canvas">
+				<LLMGuiDemo scene={subAgentScene} provider="mixed" theme="light" maxHeight="500px" />
+			</div>
+		</div>
+		<div class="preview-frame preview-frame--demo">
+			<h2>Motion preview</h2>
+			<div class="preview-frame__canvas">
+				<LLMGuiDemo scene={motionScene} provider="claude" mode="typing" theme="system" maxHeight="500px" />
+			</div>
+		</div>
+	</section>
+</PlaygroundLayout>

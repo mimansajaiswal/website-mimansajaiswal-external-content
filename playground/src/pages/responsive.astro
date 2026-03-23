@@ -1,0 +1,39 @@
+---
+import PlaygroundLayout from "../layouts/PlaygroundLayout.astro";
+import LLMGuiDemo from "@custom-components/LLMGuiDemo.astro";
+import { responsiveScene } from "@fixtures/scenes";
+---
+
+<PlaygroundLayout
+	title="Responsive widths"
+	description="Check the same GUI shell inside narrow, medium, and wide parent containers."
+>
+	<section class="playground-intro">
+		<h2>Responsive goal</h2>
+		<p>
+			The parent container controls the size. The scene should stay legible without dragging desktop-only chrome into
+			the mobile frame.
+		</p>
+	</section>
+
+	<section class="size-rail size-rail--responsive">
+		<div class="size-frame size-frame--mobile">
+			<div class="size-frame__label">Mobile width</div>
+			<div class="size-frame__canvas" data-width="mobile" style="height: 540px;">
+				<LLMGuiDemo scene={responsiveScene} provider="gemini" theme="light" />
+			</div>
+		</div>
+		<div class="size-frame size-frame--tablet">
+			<div class="size-frame__label">Tablet width</div>
+			<div class="size-frame__canvas" data-width="tablet" style="height: 460px;">
+				<LLMGuiDemo scene={responsiveScene} provider="claude" theme="system" />
+			</div>
+		</div>
+		<div class="size-frame size-frame--desktop">
+			<div class="size-frame__label">Desktop width</div>
+			<div class="size-frame__canvas" data-width="desktop" style="height: 500px;">
+				<LLMGuiDemo scene={responsiveScene} provider="codex" theme="dark" />
+			</div>
+		</div>
+	</section>
+</PlaygroundLayout>
